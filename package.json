@@ -1,0 +1,45 @@
+{
+  "name": "autohost-logging-collector",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/LeanKit-Labs/autohost-logging-collector.git"
+  },
+  "version": "0.0.1",
+  "description": "Logging Resource for autohost",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "gulp test",
+    "coverage": "gulp coverage",
+    "show-coverage": "open ./coverage/lcov-report/index.html"
+  },
+  "dependencies": {
+    "moment": "^2.10.2"
+  },
+  "devDependencies": {
+    "autohost": "^0.3.0",
+    "chai": "^2.2.0",
+    "chai-as-promised": "^5.0.0",
+    "fount": "0.0.6",
+    "gulp": "~3.8.7",
+    "gulp-istanbul": "^0.8.1",
+    "gulp-mocha": "^2.0.1",
+    "gulp-spawn-mocha": "^2.0.1",
+    "gulp-util": "~2.2.19",
+    "halon": "^0.3.0",
+    "hyped": "^0.1.0",
+    "istanbul": "~0.3.2",
+    "mocha": "~1.20.1",
+    "open": "0.0.5",
+    "postal": "^1.0.2",
+    "request": "^2.55.0",
+    "when": "^3.7.2",
+    "whistlepunk": "^0.3.1"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "author": "LeanKit"
+}
