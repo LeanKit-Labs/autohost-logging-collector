@@ -1,10 +1,10 @@
 require( "./helpers/node-setup.js" );
 
 describe( "autohost-logging-collector - plain requests", function() {
-	var host, subscriber, fount, results, actual, expected;
+	var autohost, host, subscriber, fount, results, actual, expected;
 
 	function initTest( cfg ) {
-		host = require( "autohost" );
+		autohost = require( "autohost" );
 		fount = require( "fount" );
 		fount.register( "loggingCollectorConfig", cfg );
 		fount.register( "postal", postal );
@@ -16,17 +16,18 @@ describe( "autohost-logging-collector - plain requests", function() {
 			}
 		} );
 
-		return host.init( {
+		host = autohost( {
 			fount: fount,
 			port: 8898,
 			modules: [
 				"./src/index.js"
 			]
 		} );
+		host.start();
 	}
 
 	before( function() {
-		return initTest( {
+		initTest( {
 			namespace: "test-namespace",
 			logChannel: "test-channel"
 		} );
@@ -39,15 +40,17 @@ describe( "autohost-logging-collector - plain requests", function() {
 
 	describe( "when making a successful request", function() {
 		before( function() {
-			expected = { status: 201, data: { msg: "Created" } };
+			expected = { status: 202, data: { processed: 1, invalid: 0 } };
 			results = [];
 			actual = undefined;
-			return postLogEntry( {
-				type: "info",
-				level: 3,
-				timestamp: "2015-03-19T13:26:34.000Z",
-				msg: "For your information...."
-			}, "application/json" )
+			return postLogEntry( [
+				{
+					type: "info",
+					level: 3,
+					timestamp: "2015-03-19T13:26:34.000Z",
+					msg: "For your information...."
+				}
+			], "application/json" )
 				.then( function( resp ) {
 					actual = {
 						status: resp[ 0 ].statusCode,
@@ -65,14 +68,47 @@ describe( "autohost-logging-collector - plain requests", function() {
 				namespace: "test-namespace"
 			} );
 		} );
-		it( "should return expected 201 response", function() {
+		it( "should return expected 202 response", function() {
 			actual.should.eql( expected );
 		} );
 	} );
 
-	describe( "when making a failing request", function() {
+	describe( "when sending an invalid log entry", function() {
 		before( function() {
-			expected = { status: 400, data: { msg: "Logging payloads must contain timestamp, type, level and msg properties" } };
+			expected = {
+				status: 202,
+				data: { processed: 0, invalid: 1 }
+			};
+			results = [];
+			actual = undefined;
+			return postLogEntry( [
+				{
+					timestamp: "2015-03-19T13:26:34.000Z",
+					msg: "For your information...."
+				}
+			] ).then( function( resp ) {
+				actual = {
+					status: resp[ 0 ].statusCode,
+					data: resp[ 1 ]
+				};
+			}, "application/json" );
+		} );
+		it( "should NOT publish log message", function() {
+			results.length.should.equal( 0 );
+		} );
+		it( "should return expected response", function() {
+			actual.should.eql( expected );
+		} );
+	} );
+
+	describe( "when sending an invalid request", function() {
+		before( function() {
+			expected = {
+				status: 400,
+				data: {
+					error: "Log Entries must be submitted as an array"
+				}
+			};
 			results = [];
 			actual = undefined;
 			return postLogEntry( {

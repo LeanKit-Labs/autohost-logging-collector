@@ -16,22 +16,22 @@
     "show-coverage": "open ./coverage/lcov-report/index.html"
   },
   "dependencies": {
+    "lodash": "^3.8.0",
     "moment": "^2.10.2"
   },
+  "peerDependencies": {
+    "autohost": "~0.4.2",
+    "hyped": "~0.2.1"
+  },
   "devDependencies": {
-    "autohost": "^0.3.0",
+    "autohost": "^0.4.2",
+    "biggulp": "^0.2.0",
     "chai": "^2.2.0",
     "chai-as-promised": "^5.0.0",
     "fount": "0.0.6",
     "gulp": "~3.8.7",
-    "gulp-istanbul": "^0.8.1",
-    "gulp-mocha": "^2.0.1",
-    "gulp-spawn-mocha": "^2.0.1",
-    "gulp-util": "~2.2.19",
     "halon": "^0.3.0",
-    "hyped": "^0.1.0",
-    "istanbul": "~0.3.2",
-    "mocha": "~1.20.1",
+    "hyped": "~0.2.1",
     "open": "0.0.5",
     "postal": "^1.0.2",
     "request": "^2.55.0",
