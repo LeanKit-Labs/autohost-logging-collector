@@ -10,10 +10,10 @@ var post = lift( request.post ).bind( request );
 
 global.postLogEntry = function postLogEntry( body, acceptHdr ) {
 	return post( {
-		url: "http://localhost:8898/api/logging/entry",
+		url: "http://localhost:8898/api/logging/upload",
 		headers: {
 			"content-type": "application/json",
-			"accept": acceptHdr
+			accept: acceptHdr
 		},
 		json: body
 	} );
