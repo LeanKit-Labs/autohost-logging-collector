@@ -7,7 +7,7 @@
     "type": "git",
     "url": "git://github.com/LeanKit-Labs/autohost-logging-collector.git"
   },
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Logging Resource for autohost",
   "main": "src/index.js",
   "scripts": {
@@ -31,7 +31,7 @@
     "fount": "0.0.6",
     "gulp": "~3.8.7",
     "halon": "^0.3.0",
-    "hyped": "~0.2.1",
+    "hyped": "~0.2.2",
     "open": "0.0.5",
     "postal": "^1.0.2",
     "request": "^2.55.0",
