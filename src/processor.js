@@ -18,7 +18,7 @@ module.exports = function( postal, loggingCollectorConfig ) {
 				log.namespace = log.namespace || loggingCollectorConfig.namespace;
 				postal.publish( {
 					channel: loggingCollectorConfig.logChannel,
-					topic: log.type,
+					topic: log.namespace,
 					data: log
 				} );
 				acc.processed++;
